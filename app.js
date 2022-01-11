@@ -13,11 +13,9 @@ app.use(express.json())
 //seteamos las variables de entorno
 dotenv.config({path: './env/.env'})
 //seteamos las cookies
-app.use(cookieParser)
-
-app.get('/', (req, res) => {
-    res.send('Hola mundo')
-})
+// app.use(cookieParser)
+//lamar al router
+app.use('/', require('./routes/router'))
 
 app.listen(3000, ()=> {
     console.log('SERVER UP running in http://localhost:3000')
