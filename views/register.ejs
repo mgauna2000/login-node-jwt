@@ -32,19 +32,18 @@
                 <div class="card border-primary">
                     <div class="card-header bg-primary text-white">Registrarse</div>
                     <div class="card-body text-primary">
-                        <div action="/register" method="POST">
+                        <form action="/register" method="POST">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nombre completo</label>
-                                <input type="text" id="name" class="form-control" aria-describedby="emailHelp">
+                                <input type="text" id="name" class="form-control" name="name" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
                                 <label for="user" class="form-label">Cuenta de usuario</label>
-                                <input type="text" id="user" class="form-control">
+                                <input type="text" id="user" name="user" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label for="pass" class="form-label">Contraseña</label>
-                                <input type="password" id="pass" class="form-control">
-                            </div>
+                                <input type="password" id="pass" name="pass" class="form-control">
                             </div>
                             <div class="card-footer bg-tranparent border-primary">
                                 <a href="/" type="button" class="btn btn-secondary">Cancelar</a>
