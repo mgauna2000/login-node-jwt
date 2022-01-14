@@ -3,7 +3,7 @@ const router = express.Router()
 const authController = require('../controllers/authController')
 
 //router para las vistas
-router.get('/', (req, res) => {
+router.get('/', authController.isAuthenticated, (req, res) => {
     res.render('index')
 })
 router.get('/login', (req, res) => {

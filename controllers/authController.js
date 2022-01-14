@@ -79,3 +79,21 @@ exports.login = async (req ,res) => {
         console.log(error)
     }
 }
+
+exports.isAuthenticated = async (req, res, next) => {
+    if (req.cookiesOptions.jwt) {
+        try {
+            const decoded = await promisify(jwt.verify)(req.cookiesOptions.jwt, process.env.JWT_SECRETO)
+            connection.query('SELECT * FROM users WHERE id = ?', [decoded.id], (error, results) => {
+                if (!results) {return next()}
+                req.user = results[0]
+                return next()
+            })
+        } catch (error) {
+            console.log(error)
+            return next()
+        }
+    }else{
+        res.redirect('/login')
+    }
+}
