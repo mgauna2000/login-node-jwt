@@ -16,6 +16,12 @@ dotenv.config({path: './env/.env'})
 app.use(cookieParser())
 //lamar al router
 app.use('/', require('./routes/router'))
+//para eliminar el cache y que no se pueda volver con el boton de back luego de que hacemos un logout
+app.use(function(req, res, next) {
+    if (!req.user) 
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate')
+    next()
+})
 
 app.listen(3000, ()=> {
     console.log('SERVER UP running in http://localhost:3000')

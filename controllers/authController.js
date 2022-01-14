@@ -79,11 +79,11 @@ exports.login = async (req ,res) => {
         console.log(error)
     }
 }
-
+//procedimiento para auntenticar
 exports.isAuthenticated = async (req, res, next) => {
-    if (req.cookiesOptions.jwt) {
+    if (req.cookies.jwt) {
         try {
-            const decoded = await promisify(jwt.verify)(req.cookiesOptions.jwt, process.env.JWT_SECRETO)
+            const decoded = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRETO)
             connection.query('SELECT * FROM users WHERE id = ?', [decoded.id], (error, results) => {
                 if (!results) {return next()}
                 req.user = results[0]
@@ -96,4 +96,9 @@ exports.isAuthenticated = async (req, res, next) => {
     }else{
         res.redirect('/login')
     }
+}
+//procedimiento para cerrar sesion
+exports.logout = (req, res) => {
+    res.clearCookie('jwt')
+    return res.redirect('/')
 }
