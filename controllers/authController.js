@@ -33,9 +33,10 @@ exports.login = async (req ,res) => {
                 alert: true,
                 alertTitle: "Advertencia",
                 alertMessage: "Ingrese un usuario y contraseña",
+                alertIcon: 'info',
                 showConfirmButton: true,
                 timer: false,
-                ruta: "login"
+                ruta: 'login'
             })
         }else{
             connection.query('SELECT * FROM users WHERE user = ?', [user], async (error, results) => {
@@ -44,7 +45,7 @@ exports.login = async (req ,res) => {
                         alert: true,
                         alertTitle: "Error",
                         alertMessage: "Usuario o contraseña incorrectas",
-                        alertIcon: "error",
+                        alertIcon: 'error',
                         showConfirmButton: true,
                         timer: false,
                         ruta: 'login'
@@ -56,10 +57,25 @@ exports.login = async (req ,res) => {
                     })
                     //generamos el token sin fecha de expiracion
                     console.log("TOKEN: "+token+" para el usuario: "+user)
+
+                    const cookiesOptions = {
+                        expires: new Date(Date.now()+process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
+                        httpOnly: true
+                    }
+                    res.cookie('jwt', token, cookiesOptions)
+                    res.render('login', {
+                        alert: true,
+                        alertTitle: "Conexión exitosa",
+                        alertMessage: "Login Correcto",
+                        alertIcon: 'success',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        ruta: ''
+                    })
                 }
             })
         }
     } catch (error) {
-        
+        console.log(error)
     }
 }

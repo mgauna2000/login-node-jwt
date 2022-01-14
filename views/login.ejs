@@ -39,7 +39,7 @@
       </label>
     </div>
     <button class="w-100 btn btn-lg btn-bd-primary" type="submit">Entrar</button>
-    <a type="button" class="w-100 btn btn-lg btn-bd-primary mt-2">Registrarse</a>
+    <a href="/register" type="button" class="w-100 btn btn-lg btn-bd-primary mt-2">Registrarse</a>
     <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
   </form>
 </main>
@@ -48,11 +48,11 @@
 <% if(alert) { %>
     <script>
       Swal.fire({
-        title: '<% alertTitle %>',
-        text: '<% alertMessage %>',
-        icon: '<% alertIcon %>',
-        showConfirmButton: <% showConfirmButton %>,
-        timer: <% timer %>
+        title: '<%= alertTitle %>',
+        text: '<%= alertMessage %>',
+        icon: '<%= alertIcon %>',
+        showConfirmButton: <%= showConfirmButton %>,
+        timer: <%= timer %>
       }).then(() => {
         window.location = '/ <%= ruta %>'
       })
